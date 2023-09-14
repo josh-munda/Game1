@@ -1,4 +1,4 @@
 Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Size,Build Seconds
-"C:/Users/Josh/Desktop/Game1/Game1/Game1/Content/arial.spritefont","C:/Users/Josh/Desktop/Game1/Game1/Game1/Content/bin/Windows/Content/consolas.xnb","FontDescriptionProcessor","SpriteFontContent",2071,136223,0.1934111
-"C:/Users/Josh/Desktop/Game1/Game1/Game1/Content/ball.png","C:/Users/Josh/Desktop/Game1/Game1/Game1/Content/bin/Windows/Content/ball.xnb","TextureProcessor","Texture2DContent",3247,9689,0.0207156
+"C:/Users/Josh/Desktop/Game1/Game1/Game1/Content/arial.spritefont","C:/Users/Josh/Desktop/Game1/Game1/Game1/Content/bin/Windows/Content/consolas.xnb","FontDescriptionProcessor","SpriteFontContent",2071,70687,0.1787299
+"C:/Users/Josh/Desktop/Game1/Game1/Game1/Content/ball.png","C:/Users/Josh/Desktop/Game1/Game1/Game1/Content/bin/Windows/Content/ball.xnb","TextureProcessor","Texture2DContent",919,1529,0.1003366
 "C:/Users/Josh/Desktop/Game1/Game1/Game1/Content/paddle.png","C:/Users/Josh/Desktop/Game1/Game1/Game1/Content/bin/Windows/Content/paddle.xnb","TextureProcessor","Texture2DContent",2221,18585,0.0022642

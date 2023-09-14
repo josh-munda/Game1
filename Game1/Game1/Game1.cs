@@ -50,6 +50,7 @@ namespace Game1
             player2Paddle.LoadContent(Content);
             ball.LoadContent(Content);
             gameLogic.LoadContent(Content);
+            spriteFont = Content.Load<SpriteFont>("consolas");
         }
 
         protected override void Update(GameTime gameTime)
@@ -64,18 +65,33 @@ namespace Game1
                 ball.Update(gameTime, player1Paddle, player2Paddle);
                 gameLogic.Update(gameTime);
 
+                bool player1JustScored = false;
+                bool player2JustScored = false;
+
                 if (ball.Position.X < 0)
                 {
-                    player2Score++;
-                    gameLogic.ResetBall();
+                    player2JustScored = true;
                 }
                 else if (ball.Position.X + ball.Width > GraphicsDevice.Viewport.Width)
                 {
-                    player1Score++;
+                    player1JustScored = true;
+                }
+
+                if (player1JustScored || player2JustScored)
+                {
+                    if (player1JustScored)
+                    {
+                        player1Score++;
+                    }
+                    else if (player2JustScored)
+                    {
+                        player2Score++;
+                    }
+
                     gameLogic.ResetBall();
                 }
             }
-            else Exit();
+            else if (gameLogic.IsGameOver == true) Exit();
 
             // TODO: Add your update logic here
 
@@ -84,7 +100,7 @@ namespace Game1
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.Black);
+            GraphicsDevice.Clear(Color.Blue);
 
             spriteBatch.Begin();
 
@@ -96,7 +112,7 @@ namespace Game1
                 ball.Draw(spriteBatch);
                 gameLogic.Draw(spriteBatch);
                 spriteBatch.DrawString(spriteFont, $"Player 1: {player1Score}", new Vector2(10, 10), Color.White);
-                spriteBatch.DrawString(spriteFont, $"Player 2: {player2Score}", new Vector2(600, 10), Color.White);
+                spriteBatch.DrawString(spriteFont, $"Player 2: {player2Score}", new Vector2(550, 10), Color.White);
             }
 
             spriteBatch.End();

@@ -14,6 +14,11 @@ namespace Game1
         private Texture2D texture;
 
         /// <summary>
+        /// The height of the screen
+        /// </summary>
+        public static readonly int screenHeight = 360;
+
+        /// <summary>
         /// The velocity of the ball
         /// </summary>
         public Vector2 Velocity;
@@ -67,6 +72,8 @@ namespace Game1
             if(IsCollisionWithPaddle(paddle1) || IsCollisionWithPaddle(paddle2)){
                 Velocity.X *= -1;
             }
+
+            Position.Y = MathHelper.Clamp(Position.Y, 0, screenHeight - texture.Height);
         }
 
         /// <summary>

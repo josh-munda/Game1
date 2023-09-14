@@ -18,14 +18,20 @@ namespace Game1
 
         private Texture2D texture;
 
-        private Vector2 position;
-
         private int initialXPositionForPlayer1 = 0;
         private int initialYPositionForPlayer1 = 180;
 
         private int initialXPositionForPlayer2 = 715;
         private int initialYPositionForPlayer2 = 180;
 
+        /// <summary>
+        /// The position of the paddles
+        /// </summary>
+        public Vector2 Position;
+
+        /// <summary>
+        /// The height of the screen
+        /// </summary>
         public static readonly int screenHeight = 360;
 
         /// <summary>
@@ -41,11 +47,11 @@ namespace Game1
         {
             if (isPlayer1)
             {
-                position = new Vector2(initialXPositionForPlayer1, initialYPositionForPlayer1);
+                Position = new Vector2(initialXPositionForPlayer1, initialYPositionForPlayer1);
             }
             else
             {
-                position = new Vector2(initialXPositionForPlayer2, initialYPositionForPlayer2);
+                Position = new Vector2(initialXPositionForPlayer2, initialYPositionForPlayer2);
             }
         }
 
@@ -69,13 +75,22 @@ namespace Game1
 
             //Player 1 controls with gamepad
             gamePadState = GamePad.GetState(PlayerIndex.One);
-            position.Y += gamePadState.ThumbSticks.Left.Y * 5;
+            Position.Y += gamePadState.ThumbSticks.Left.Y * 5;
 
             //Player 2 contols with arrow keys
-            if (keyboardState.IsKeyDown(Keys.Up)) position.Y -= 5;
-            else if (keyboardState.IsKeyDown(Keys.Down)) position.Y += 5;
+            if (keyboardState.IsKeyDown(Keys.Up)) Position.Y -= 5;
+            else if (keyboardState.IsKeyDown(Keys.Down)) Position.Y += 5;
 
-            position.Y = MathHelper.Clamp(position.Y, 0, screenHeight - texture.Height);
+            Position.Y = MathHelper.Clamp(Position.Y, 0, screenHeight - texture.Height);
+        }
+
+        /// <summary>
+        /// Draw the paddles
+        /// </summary>
+        /// <param name="spriteBatch">The sprite batch used to draw the sprites</param>
+        public void Draw(SpriteBatch spriteBatch)
+        {
+            spriteBatch.Draw(texture, Position, Color);
         }
     }
 }

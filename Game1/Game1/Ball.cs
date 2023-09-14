@@ -13,17 +13,33 @@ namespace Game1
     {
         private Texture2D texture;
 
-        private Vector2 position;
+        /// <summary>
+        /// The velocity of the ball
+        /// </summary>
+        public Vector2 Velocity;
 
-        private Vector2 velocity;
+        /// <summary>
+        /// The width of the ball
+        /// </summary>
+        public int Width = 20;
+
+        /// <summary>
+        /// The height of the ball
+        /// </summary>
+        public int Height = 20;
+
+        /// <summary>
+        /// The position of the ball
+        /// </summary>
+        public Vector2 Position;
 
         /// <summary>
         /// The constructor for the ball's position and velocity
         /// </summary>
         public Ball()
         {
-            position = new Vector2(180, 150);
-            velocity = new Vector2(5, 5);
+            Position = new Vector2(180, 150);
+            Velocity = new Vector2(5, 5);
         }
 
         /// <summary>
@@ -36,15 +52,20 @@ namespace Game1
         }
 
 
-        public void Update(GameTime gameTime)
+        public void Update(GameTime gameTime, Paddle paddle1, Paddle paddle2)
         {
             //Update the position based on the velocity
-            position += velocity;
+            Position += Velocity;
 
             //Check for collision with the top and bottom of the screen
-            if(position.Y < 0 || position.Y + texture.Height > 360)
+            if(Position.Y < 0 || Position.Y + texture.Height > 360)
             {
-                velocity.Y *= -1;
+                Velocity.Y *= -1;
+            }
+
+            //Reverse ball's horizontal direction when collision with paddle
+            if(IsCollisionWithPaddle(paddle1) || IsCollisionWithPaddle(paddle2)){
+                Velocity.X *= -1;
             }
         }
 
@@ -54,7 +75,27 @@ namespace Game1
         /// <param name="spriteBatch">The spriteBatch to draw the sprite</param>
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(texture, position, Color.White);
+            spriteBatch.Draw(texture, Position, Color.White);
+        }
+
+
+        public bool IsCollisionWithPaddle(Paddle paddle)
+        {
+            Rectangle ballBounds = new Rectangle(
+                (int)Position.X,
+                (int)Position.Y,
+                texture.Width,
+                texture.Height
+                );
+
+            Rectangle paddleBounds = new Rectangle(
+                (int)paddle.Position.X,
+                (int)paddle.Position.Y,
+                texture.Width,
+                texture.Height
+                );
+
+            return ballBounds.Intersects(paddleBounds);
         }
     }
 }

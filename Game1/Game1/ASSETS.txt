@@ -1,0 +1,3 @@
+﻿Content/ball.png - created by Deathsbreed of OpenGameArt.org (https://opengameart.org/content/pong-graphics) and released under CC-BY-SA 3.0 - edited to only use the ball by Josh Munda
+
+Content/paddle.png - created by Deathsbreed of OpenGameArt.org (https://opengameart.org/content/pong-graphics) and released under CC-BY-SA 3.0 - edited to only use purple paddle by Josh Munda

@@ -24,8 +24,6 @@ namespace Game1
 
         private GraphicsDevice graphicsDevice;
 
-        //private SpriteFont spriteFont;
-
         /// <summary>
         /// Constructor to initialize properties
         /// </summary>
@@ -51,7 +49,6 @@ namespace Game1
             paddle1.LoadContent(content);
             paddle2.LoadContent(content);
             ball.LoadContent(content);
-            //spriteFont = content.Load<SpriteFont>("arial");
         }
 
         /// <summary>
@@ -65,23 +62,40 @@ namespace Game1
 
             ball.Update(gameTime, paddle1, paddle2);
 
-            /*
-            if(ball.Position.X < 0)
-            {
-                player2Score++;
-                ResetBall();
-            }
-            else if(ball.Position.X + ball.Width > graphicsDevice.Viewport.Width)
-            {
-                player1Score++;
-                ResetBall();
-            }
-            */
+            
+            bool player1JustScored = false;
+            bool player2JustScored = false;
 
-            if(player1Score >= 5 || player2Score >= 5)
+            if (ball.Position.X < 0)
+            {
+                player2JustScored = true;
+            }
+            else if (ball.Position.X + ball.Width > graphicsDevice.Viewport.Width)
+            {
+                player1JustScored = true;
+            }
+
+            if (player1JustScored || player2JustScored)
+            {
+                if (player1JustScored)
+                {
+                    player1Score++;
+                }
+                else if (player2JustScored)
+                {
+                    player2Score++;
+                }
+
+                ResetBall();
+            }
+
+
+            if (player1Score >= 5 || player2Score >= 5)
             {
                 IsGameOver = true;
             }
+            
+            
         }
 
         /// <summary>
@@ -93,9 +107,7 @@ namespace Game1
             paddle1.Draw(spriteBatch);
             paddle2.Draw(spriteBatch);
 
-            ball.Draw(spriteBatch);
-
-            
+            //ball.Draw(gameTime, spriteBatch);
         }
 
         /// <summary>

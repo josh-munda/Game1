@@ -21,7 +21,7 @@ namespace Game1
         private int initialXPositionForPlayer1 = 0;
         private int initialYPositionForPlayer1 = 180;
 
-        private int initialXPositionForPlayer2 = 715;
+        private int initialXPositionForPlayer2 = 765;
         private int initialYPositionForPlayer2 = 180;
 
         /// <summary>

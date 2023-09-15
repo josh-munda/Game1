@@ -13,6 +13,10 @@ namespace Game1
     {
         private Texture2D texture;
 
+        private double animationTimer;
+
+        private short animationFrame = 1;
+
         /// <summary>
         /// The height of the screen
         /// </summary>
@@ -44,7 +48,7 @@ namespace Game1
         public Ball()
         {
             Position = new Vector2(180, 150);
-            Velocity = new Vector2(5, 5);
+            Velocity = new Vector2(3, 3);
         }
 
         /// <summary>
@@ -63,7 +67,7 @@ namespace Game1
             Position += Velocity;
 
             //Check for collision with the top and bottom of the screen
-            if(Position.Y < 0 || Position.Y + texture.Height > 360)
+            if(Position.Y < 0 || Position.Y + texture.Height > screenHeight)
             {
                 Velocity.Y *= -1;
             }
@@ -73,16 +77,26 @@ namespace Game1
                 Velocity.X *= -1;
             }
 
-            Position.Y = MathHelper.Clamp(Position.Y, 0, screenHeight - texture.Height);
+            //Position.Y = MathHelper.Clamp(Position.Y, 0, screenHeight - texture.Height);
         }
 
         /// <summary>
         /// Draw the ball on the screen
         /// </summary>
         /// <param name="spriteBatch">The spriteBatch to draw the sprite</param>
-        public void Draw(SpriteBatch spriteBatch)
+        public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(texture, Position, Color.White);
+            animationTimer += gameTime.ElapsedGameTime.TotalSeconds;
+            
+            if(animationTimer > 0.3)
+            {
+                animationFrame++;
+                if (animationFrame > 3) animationFrame = 1;
+                animationTimer -= 0.3;
+            }
+            
+            var source = new Rectangle(animationFrame * 1, 32, 32, 32);
+            spriteBatch.Draw(texture, Position, source, Color.White);
         }
 
 

@@ -65,6 +65,7 @@ namespace Game1
                 ball.Update(gameTime, player1Paddle, player2Paddle);
                 gameLogic.Update(gameTime);
 
+                /*
                 bool player1JustScored = false;
                 bool player2JustScored = false;
 
@@ -90,6 +91,7 @@ namespace Game1
 
                     gameLogic.ResetBall();
                 }
+                */
             }
             else if (gameLogic.IsGameOver == true) Exit();
 
@@ -100,7 +102,7 @@ namespace Game1
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.Blue);
+            GraphicsDevice.Clear(Color.Black);
 
             spriteBatch.Begin();
 
@@ -109,10 +111,10 @@ namespace Game1
             {
                 player1Paddle.Draw(spriteBatch);
                 player2Paddle.Draw(spriteBatch);
-                ball.Draw(spriteBatch);
+                ball.Draw(gameTime, spriteBatch);
                 gameLogic.Draw(spriteBatch);
-                spriteBatch.DrawString(spriteFont, $"Player 1: {player1Score}", new Vector2(10, 10), Color.White);
-                spriteBatch.DrawString(spriteFont, $"Player 2: {player2Score}", new Vector2(550, 10), Color.White);
+                spriteBatch.DrawString(spriteFont, $"How long can you keep the ball in play? {gameTime.TotalGameTime:c}", new Vector2(10, 450), Color.White);
+                
             }
 
             spriteBatch.End();

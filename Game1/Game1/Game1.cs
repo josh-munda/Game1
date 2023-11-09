@@ -21,6 +21,8 @@ namespace Game1
         private int player1Score = 0;
         private int player2Score = 0;
 
+        Cube cube;
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -51,10 +53,14 @@ namespace Game1
             ball.LoadContent(Content);
             gameLogic.LoadContent(Content);
             spriteFont = Content.Load<SpriteFont>("consolas");
+
+            cube = new Cube(this);
         }
 
         protected override void Update(GameTime gameTime)
         {
+            cube.Update(gameTime);
+
             if (Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
@@ -116,6 +122,8 @@ namespace Game1
                 spriteBatch.DrawString(spriteFont, $"How long can you keep the ball in play? {gameTime.TotalGameTime:c}", new Vector2(10, 450), Color.White);
                 
             }
+
+            cube.Draw();
 
             spriteBatch.End();
 

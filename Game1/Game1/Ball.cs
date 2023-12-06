@@ -17,6 +17,10 @@ namespace Game1
 
         private short animationFrame = 1;
 
+        private float speedIncrement = 1.1f;
+
+        private float maxSpeed = 10.0f;
+
         /// <summary>
         /// The height of the screen
         /// </summary>
@@ -73,8 +77,13 @@ namespace Game1
             }
 
             //Reverse ball's horizontal direction when collision with paddle
-            if(IsCollisionWithPaddle(paddle1) || IsCollisionWithPaddle(paddle2)){
+            if(IsCollisionWithPaddle(paddle1) || IsCollisionWithPaddle(paddle2))
+            {
                 Velocity.X *= -1;
+
+                Velocity *= speedIncrement;
+
+                Velocity = Vector2.Clamp(Velocity, new Vector2(-maxSpeed, -maxSpeed), new Vector2(maxSpeed, maxSpeed));
             }
 
             //Position.Y = MathHelper.Clamp(Position.Y, 0, screenHeight - texture.Height);

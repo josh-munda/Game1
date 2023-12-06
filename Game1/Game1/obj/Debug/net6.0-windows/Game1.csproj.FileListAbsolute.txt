@@ -78,3 +78,4 @@ C:\Users\Josh\Desktop\Video Game Class\Game1\Game1\Game1\obj\Debug\net6.0-window
 C:\Users\Josh\Desktop\Video Game Class\Game1\Game1\Game1\obj\Debug\net6.0-windows\Game1.pdb
 C:\Users\Josh\Desktop\Video Game Class\Game1\Game1\Game1\obj\Debug\net6.0-windows\Game1.genruntimeconfig.cache
 C:\Users\Josh\Desktop\Video Game Class\Game1\Game1\Game1\obj\Debug\net6.0-windows\ref\Game1.dll
+C:\Users\Josh\Desktop\Video Game Class\Game1\Game1\Game1\bin\Debug\net6.0-windows\Content\background.xnb

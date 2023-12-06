@@ -21,7 +21,9 @@ namespace Game1
         private int player1Score = 0;
         private int player2Score = 0;
 
-        Cube cube;
+        private Texture2D backgroundImage;
+
+        //Cube cube;
 
         public Game1()
         {
@@ -53,13 +55,14 @@ namespace Game1
             ball.LoadContent(Content);
             gameLogic.LoadContent(Content);
             spriteFont = Content.Load<SpriteFont>("consolas");
+            backgroundImage = Content.Load<Texture2D>("background");
 
-            cube = new Cube(this);
+            //cube = new Cube(this);
         }
 
         protected override void Update(GameTime gameTime)
         {
-            cube.Update(gameTime);
+            //cube.Update(gameTime);
 
             if (Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
@@ -115,6 +118,17 @@ namespace Game1
             // TODO: Add your drawing code here
             if (!gameLogic.IsGameOver)
             {
+                // Get the center position of the screen
+                Vector2 screenCenter = new Vector2(GraphicsDevice.Viewport.Width / 2, GraphicsDevice.Viewport.Height / 2);
+
+                // Define a scale factor for the image (e.g., 0.5 for 50% scale)
+                float scale = 1.0f;
+
+                // Calculate the position to draw the image at the center
+                Vector2 imagePosition = screenCenter - new Vector2(backgroundImage.Width * scale / 2, backgroundImage.Height * scale / 2);
+
+                // Draw the background image with the specified scale and position
+                spriteBatch.Draw(backgroundImage, imagePosition, null, Color.White, 0f, Vector2.Zero, scale, SpriteEffects.None, 0f);
                 player1Paddle.Draw(spriteBatch);
                 player2Paddle.Draw(spriteBatch);
                 ball.Draw(gameTime, spriteBatch);
@@ -123,7 +137,7 @@ namespace Game1
                 
             }
 
-            cube.Draw();
+            //cube.Draw();
 
             spriteBatch.End();
 

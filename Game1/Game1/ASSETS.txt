@@ -3,3 +3,5 @@
 Content/paddle.png - created by Deathsbreed of OpenGameArt.org (https://opengameart.org/content/pong-graphics) and released under CC-BY-SA 3.0 - edited to only use purple paddle by Josh Munda
 
 Cube class - created by Nathan Bean of the CIS 580 course (https://k-state.instructure.com/courses/149062/pages/13-dot-4-rendering-a-cube?module_item_id=4399018)
+
+Content/background.png - created by freepik on FreePik.com (https://freepik.com/free-vector/gradient-cyber-futuristic-background_18954497.htm#query=futuristic&position=22&from_view=keyword&track=sph&uuid=45af08bb-8049-414d-baf5-52db8c518ca9)

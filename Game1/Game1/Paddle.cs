@@ -24,6 +24,8 @@ namespace Game1
         private int initialXPositionForPlayer2 = 765;
         private int initialYPositionForPlayer2 = 180;
 
+        private Vector2 initialPosition;
+
         /// <summary>
         /// The position of the paddles
         /// </summary>
@@ -47,12 +49,14 @@ namespace Game1
         {
             if (isPlayer1)
             {
-                Position = new Vector2(initialXPositionForPlayer1, initialYPositionForPlayer1);
+                initialPosition = new Vector2(initialXPositionForPlayer1, initialYPositionForPlayer1);
             }
             else
             {
-                Position = new Vector2(initialXPositionForPlayer2, initialYPositionForPlayer2);
+                initialPosition = new Vector2(initialXPositionForPlayer2, initialYPositionForPlayer2);
             }
+
+            Position = initialPosition;
         }
 
         /// <summary>
@@ -90,6 +94,7 @@ namespace Game1
         /// <param name="spriteBatch">The sprite batch used to draw the sprites</param>
         public void Draw(SpriteBatch spriteBatch)
         {
+            if(texture != null)
             spriteBatch.Draw(texture, Position, Color);
         }
     }

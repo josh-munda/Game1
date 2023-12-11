@@ -127,5 +127,11 @@ namespace Game1
 
             return ballBounds.Intersects(paddleBounds);
         }
+
+        public void Initialize()
+        {
+            Position = new Vector2(180, 150);
+            Velocity = new Vector2(3, 3);
+        }
     }
 }

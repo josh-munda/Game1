@@ -1,6 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System;
+using System.Threading;
+using System.Windows.Forms;
+using MessageBox = System.Windows.Forms.MessageBox;
 
 namespace Game1
 {
@@ -18,10 +22,16 @@ namespace Game1
 
         private SpriteFont spriteFont;
 
-        private int player1Score = 0;
-        private int player2Score = 0;
+        //private int player1Score = 0;
+        //private int player2Score = 0;
 
         private Texture2D backgroundImage;
+
+        private TimeSpan gameTimeElapsed = TimeSpan.Zero;
+        private bool gameRunning = true;
+
+        private int screenWidth = 800;
+        private int screenHeight = 360;
 
         //Cube cube;
 
@@ -35,12 +45,19 @@ namespace Game1
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
+
+            graphics.PreferredBackBufferWidth = screenWidth;
+            graphics.PreferredBackBufferHeight = screenHeight;
+            graphics.ApplyChanges();
+
             player1Paddle = new Paddle(true);
             player2Paddle = new Paddle(false);
 
             ball = new Ball();
 
             gameLogic = new GameLogic(GraphicsDevice);
+
+            
 
             base.Initialize();
         }
@@ -64,45 +81,27 @@ namespace Game1
         {
             //cube.Update(gameTime);
 
-            if (Keyboard.GetState().IsKeyDown(Keys.Escape))
+            if (Keyboard.GetState().IsKeyDown(Microsoft.Xna.Framework.Input.Keys.Escape))
                 Exit();
 
-            if (!gameLogic.IsGameOver)
+            if (gameRunning)
             {
                 player1Paddle.Update(gameTime);
                 player2Paddle.Update(gameTime);
                 ball.Update(gameTime, player1Paddle, player2Paddle);
                 gameLogic.Update(gameTime);
 
-                /*
-                bool player1JustScored = false;
-                bool player2JustScored = false;
-
-                if (ball.Position.X < 0)
+                if (ball.Position.X < 0 || ball.Position.X + ball.Width > GraphicsDevice.Viewport.Width)
                 {
-                    player2JustScored = true;
-                }
-                else if (ball.Position.X + ball.Width > GraphicsDevice.Viewport.Width)
-                {
-                    player1JustScored = true;
-                }
+                    gameRunning = false;
 
-                if (player1JustScored || player2JustScored)
-                {
-                    if (player1JustScored)
-                    {
-                        player1Score++;
-                    }
-                    else if (player2JustScored)
-                    {
-                        player2Score++;
-                    }
-
-                    gameLogic.ResetBall();
+                    gameTimeElapsed = gameTime.ElapsedGameTime;
+                    ShowMessageBox($"Game Over!\nTime Played: {gameTime.TotalGameTime.TotalSeconds:F2} seconds\nThanks for playing!");
                 }
-                */
             }
-            else if (gameLogic.IsGameOver == true) Exit();
+
+            
+            //else if (gameLogic.IsGameOver == true) Exit();
 
             // TODO: Add your update logic here
 
@@ -116,8 +115,7 @@ namespace Game1
             spriteBatch.Begin();
 
             // TODO: Add your drawing code here
-            if (!gameLogic.IsGameOver)
-            {
+            
                 // Get the center position of the screen
                 Vector2 screenCenter = new Vector2(GraphicsDevice.Viewport.Width / 2, GraphicsDevice.Viewport.Height / 2);
 
@@ -133,9 +131,8 @@ namespace Game1
                 player2Paddle.Draw(spriteBatch);
                 ball.Draw(gameTime, spriteBatch);
                 gameLogic.Draw(spriteBatch);
-                spriteBatch.DrawString(spriteFont, $"How long can you keep the ball in play? {gameTime.TotalGameTime:c}", new Vector2(10, 450), Color.White);
+                spriteBatch.DrawString(spriteFont, $"How long can you keep the ball in play? ", new Vector2(120, 330), Color.White);
                 
-            }
 
             //cube.Draw();
 
@@ -143,5 +140,17 @@ namespace Game1
 
             base.Draw(gameTime);
         }
+
+        private void ShowMessageBox(string message)
+        {
+            MessageBoxButtons buttons = MessageBoxButtons.OK;
+            DialogResult result = MessageBox.Show(message, "Game Over", buttons);
+
+            if(result == DialogResult.OK)
+            {
+                Exit();
+            }
+        }
+        
     }
 }
